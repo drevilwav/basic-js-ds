@@ -51,12 +51,24 @@ class BinarySearchTree {
       if (node.data === value) {
         return true;
       }
-    }
-
+      return value < node.data
+      ? search(node.left, value)
+      : search(node.right, value)
+    })(this.rootNode, data)
   }
 
-  find(/* data */) {
-
+  find(data) {
+    return (function findNode(node, value) {
+      if (!node) {
+        return null;
+      }
+      if (node.data === value) {
+        return node;
+      }
+      return value < node.data
+      ? findNode(node.left, value)
+      : findNode(node.right, value)
+    })(this.rootNode, data);
   }
 
   remove(/* data */) {
