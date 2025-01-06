@@ -44,6 +44,14 @@ class BinarySearchTree {
 
 
   has(data) {
+    return (function search (node, value) {
+      if (!node) {
+        return false;
+      }
+      if (node.data === value) {
+        return true;
+      }
+    }
 
   }
 
