@@ -71,16 +71,53 @@ class BinarySearchTree {
     })(this.rootNode, data);
   }
 
-  remove(/* data */) {
-
+  remove(data) {
+    this.rootNode = (function removeNode(node, value) {
+      if (!node) {
+        return null;
+      }
+      if (value < node.data) {
+        node.left = removeNode(node.left, value);
+        return node;
+      } else if (value > node.data) {
+        node.right = removeNode(node.right, value);
+        return node;
+      } else {
+        if (!node.left && !node.right) {
+          return null;
+        }
+        if (!node.left) {
+          return node.right;
+        }
+        if (!node.right) {
+          return node.left;
+        }
+        let minRight = (function findMin(n) {
+          return n.left ? findMin(n.left) : n;
+        })(node.right);
+        node.data = minRight.data;
+        node.right = removeNode(node.right, minRight.data);
+        return node;
+      }
+    })(this.rootNode, data);
   }
 
   min() {
-
+    if (!this.rootNode) {
+      return null;
+    }
+    return (function getMin(node) {
+      return node.left ? getMin(node.left) : node.data;
+    })(this.rootNode);
   }
 
   max() {
-
+    if (!this.rootNode) {
+      return null;
+    }
+    return (function getMax(node) {
+      return node.right ? getMax(node.right) : node.data;
+    })(this.rootNode);
   }
 }
 
